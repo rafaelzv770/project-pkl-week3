@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="login-container">
+        <form class="login-card" action="#" method="post">
+            <h1>Register</h1>
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Masukkan username">
+            </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Masukkan email">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Masukkan password">
+            </div>
+            <div class="field">
+                <label for="confirm-password">Konfirmasi Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Ulangi password">
+            </div>
+            <button type="submit" class="btn">Daftar</button>
+            <p class="login-link">Sudah punya akun? <a href="login.html">Masuk</a></p>
+        </form>
+    </div>
+
+    <script>
+        document.querySelector('.login-card').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm-password').value;
+            if (!user || !email || !pass || !confirm) {
+                alert('Harap isi semua field.');
+                return;
+            }
+            if (pass !== confirm) {
+                alert('Password dan konfirmasi tidak cocok.');
+                return;
+            }
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push({ username: user, email: email, password: pass });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Pendaftaran berhasil untuk ' + user + '! Silakan login.');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
